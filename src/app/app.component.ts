@@ -33,6 +33,50 @@ export class AppComponent {
     },
   ];
 
-  quantityItems = 9;
-  // subTotal = 1203.68;
+  quantityItems = 0;
+  subTotal = 0;
+  discountPercent: number = 0;
+  discount: number = 0;
+  taxPercent: number = 10;
+  tax: number = 0;
+
+  removeProduct(productId: number) {
+    // Delete product
+    const index = this.products.findIndex(product => product.id === productId);
+
+    if (index !== -1)
+        this.products.splice(index, 1);
+
+    // Update subtotal
+    let quantityItems = 0;
+    let subTotal = 0;
+
+    for (const product of this.products) {
+      quantityItems += product.quantity;
+      subTotal += product.price * product.quantity;
+    }
+
+    this.quantityItems = quantityItems;
+    this.subTotal = subTotal;
+  }
+
+  ngDoCheck() {
+    this.quantityItems = 0;
+    this.subTotal = 0;
+
+    for (const product of this.products) {
+      this.quantityItems += product.quantity;
+      this.subTotal += product.price * product.quantity;
+    }
+
+    this.discount = (this.subTotal * this.discountPercent) / 100;
+    this.tax = ((this.subTotal - this.discount) * this.taxPercent) / 100;
+  }
+
+  handleUpdateQuantity(p: { id: number; quantity: number }) {
+    const product = this.products.find(product => product.id === p.id);
+    if (product) {
+      product.quantity = p.quantity || 0;
+    }
+  }
 }

@@ -4,12 +4,12 @@
   </header>
 
   <section class="container">
-    <app-body [products]="products"></app-body>
+    <app-body [products]="products" (onRemoveProduct)="removeProduct($event)"></app-body>
   </section>
 
   <section class="container">
     <app-promotion></app-promotion>
 
-    <app-summary></app-summary>
+    <app-summary [subTotal]="subTotal"></app-summary>
   </section>
 </main>

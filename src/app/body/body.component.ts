@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'app-body',
@@ -6,16 +6,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BodyComponent implements OnInit {
     @Input() products;
+    @Output() onRemoveProduct = new EventEmitter();
 
     constructor() { }
 
     ngOnInit(): void {}
 
     removeProduct(productId: number): void {
-    const index = this.products.findIndex(product => product.id === productId);
-
-    if (index !== -1)
-        this.products.splice(index, 1);
+      this.onRemoveProduct.emit(productId);
     }
 
     quantityUpdate(element) {

@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './summary.component.html'
 })
 export class SummaryComponent implements OnInit {
-  // @Input() subTotal: number;
+  @Input() subTotal: number;
 
   constructor() { }
 
